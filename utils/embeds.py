@@ -1,37 +1,31 @@
+from .yt import YTSong
 from discord import Color
 from discord import Embed
 from gettext import ngettext
-
-wcm = ":white_check_mark:"
-bcm = ":ballot_box_with_check:"
-stop = ":octagonal_sign:"
-pause = ":pause_button:"
-resume = ":play_pause:"
-error = ":x:"
-
-empty = u'\u200b'
+from itertools import islice
+from collections import deque
 
 
-def np_embed(ctx, info):
+def np_embed(ctx, info: YTSong):
     '''Embed for now playing'''
-    embed = Embed(title=f"{info['title']}",
-                  url=f"{info['url']}",
-                  description=f"`Duration: {info['duration']}`",
+    embed = Embed(title=f"{info.title}",
+                  url=f"{info.vidurl}",
+                  description=f"`Duration: {info.duration}`",
                   color=Color.magenta(),
                   inline=True
                   )
-    embed.set_thumbnail(url=info['thumbnail'])
+    embed.set_thumbnail(url=info.thumbnail)
     embed.set_author(
         name=f"Now playing", icon_url=ctx.author.avatar_url)
     return embed
 
 
-def q_embed(ctx, info, q):
+def q_embed(ctx, info: YTSong, queue: deque[YTSong]):
     '''Embed for queued songs'''
-    n = len(q)
-    embed = Embed(title=f"{info['title']}",
-                  url=f"{info['url']}",
-                  description=f"`Being played. Duration: {info['duration']}`\n",
+    n = len(queue)
+    embed = Embed(title=f"{info.title}",
+                  url=f"{info.vidurl}",
+                  description=f"`Being played. Duration: {info.duration}`\n",
                   inline=True,
                   color=Color.dark_green()
                   )
@@ -40,11 +34,12 @@ def q_embed(ctx, info, q):
         icon_url=ctx.author.avatar_url
     )
 
-    for i, song in enumerate(q, 1):
-        embed.add_field(name=empty,
-                        value=f"`{i}.` [{song['title']}]({song['url']})\n `Duration: {song['duration']}`",
+    first_ten = list(islice(queue, 10))
+    for i, song in enumerate(first_ten, 1):
+        embed.add_field(name=u'\u200b',
+                        value=f"`{i}.` [{song.title}]({song.vidurl})\n `Duration: {song.duration}`",
                         inline=False
                         )
 
-    embed.set_thumbnail(url=info['thumbnail'])
+    embed.set_thumbnail(url=info.thumbnail)
     return embed

@@ -17,13 +17,9 @@ class Reddit:
         except Exception:
             return None
 
-        if self.category == "hot":
-            post = list(subreddit.hot(limit=1))[0]
-        elif self.category == "top":
-            post = list(subreddit.top(limit=1))[0]
-        elif self.category == "new":
-            post = list(subreddit.new(limit=1))[0]
-        else:
+        try:
+            post = list(getattr(subreddit, self.category)(limit=1))[0]
+        except AttributeError:
             return None
 
         name = f"r/{subreddit.display_name}"
