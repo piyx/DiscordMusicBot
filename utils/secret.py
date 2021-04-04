@@ -20,6 +20,3 @@ WEATHER_API = os.getenv("WEATHER_API")
 # Nasa api
 # Get it from https://api.nasa.gov/
 NASA_API = os.getenv("NASA_API")
-
-# Youtube Developer Key
-DEVELOPER_KEY = os.getenv("DEVELOPER_KEY")
