@@ -18,18 +18,19 @@
 
 ## Music
 
-| Command            | Description                       | Example            |
-| :----------------- | :-------------------------------- | :----------------- |
-| .play [music_name] | plays the song from youtube       | .play flor hold on |
-| .pause             | pauses the current playing song   | .pause             |
-| .resume            | resumes the song                  | .resume            |
-| .stop              | stops playing music               | .stop              |
-| .np                | displays the now playing song     | .np                |
-| .queue             | displays the song queue list      | .queue             |
-| .skip              | skips to the next song in queue   | .skip              |
-| .clear             | clears the queue                  | .clear             |
-| .volume [percent]  | sets the volume                   | .volume 75         |
-| .repeat [times]    | repeats the current music n times | .repeat 2          |
+| Command                   | Description                       | Example                                 |
+| :------------------------ | :-------------------------------- | :-------------------------------------- |
+| .play [music_name]        | plays the song from youtube       | .play flor hold on                      |
+| .pause                    | pauses the current playing song   | .pause                                  |
+| .resume                   | resumes the song                  | .resume                                 |
+| .stop                     | stops playing music               | .stop                                   |
+| .np                       | displays the now playing song     | .np                                     |
+| .queue                    | displays the song queue list      | .queue                                  |
+| .skip                     | skips to the next song in queue   | .skip                                   |
+| .clear                    | clears the queue                  | .clear                                  |
+| .volume [percent]         | sets the volume                   | .volume 75                              |
+| .repeat [times]           | repeats the current music n times | .repeat 2                               |
+| .ytplaylist [playlist_id] | Adds yt playlist songs to queue   | .ytplaylist PLBCpyCZwYsmUVgnF7sdfadfsdf |
 
 ## Sky
 
