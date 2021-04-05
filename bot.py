@@ -6,37 +6,39 @@ from youtube_dl import YoutubeDL
 from discord.ext import commands
 from discord import FFmpegPCMAudio
 
+from utils.messages import message
+
 # Discord token
 token = TOKEN
-client = commands.Bot(command_prefix='.')
+bot = commands.Bot(command_prefix='.')
 
 
-@client.command()
+@bot.command()
 @commands.has_permissions(administrator=True)
 async def load(ctx, extension):
     try:
-        client.load_extension(f"cogs.{extension}")
-        await ctx.send(f":white_check_mark: cogs.{extension} has been loaded")
+        bot.load_extension(f"cogs.{extension}")
+        await ctx.send(message("SUCCESS", f"cogs.{extension} has been loaded"))
     except Exception as e:
-        await ctx.send(f":x: **{e}**")
+        await ctx.send(message("SUCCESS", e))
 
 
-@client.command()
+@bot.command()
 @commands.has_permissions(administrator=True)
 async def unload(ctx, extension):
     try:
-        client.unload_extension(f"cogs.{extension}")
-        await ctx.send(f":white_check_mark: cogs.{extension} has been unloaded")
+        bot.unload_extension(f"cogs.{extension}")
+        await ctx.send(message("SUCCESS", f"cogs.{extension} has been unloaded"))
     except Exception as e:
-        await ctx.send(f":x: **{e}**")
+        await ctx.send(message("SUCCESS", e))
 
 
-@client.command()
+@bot.command()
 @commands.has_permissions(administrator=True)
 async def reload(ctx, extension):
     try:
-        client.unload_extension(f"cogs.{extension}")
-        client.load_extension(f"cogs.{extension}")
+        bot.unload_extension(f"cogs.{extension}")
+        bot.load_extension(f"cogs.{extension}")
         await ctx.send(f":white_check_mark: **cogs.{extension} has been reloaded**")
     except Exception as e:
         await ctx.send(f":x: **{e}**")
@@ -45,14 +47,15 @@ async def reload(ctx, extension):
 # Load all cog files
 for filename in os.listdir('./cogs'):
     if filename.endswith('py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
+        bot.load_extension(f'cogs.{filename[:-3]}')
 
 
-@client.event
+@bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(":x:**Argument missing!**")
-    else:
-        print(error)
+        await ctx.send(message("ERROR", "Argument missing. Type .help <command> for usage details"))
 
-client.run(token)
+    elif isinstance(error, commands.CommandError):
+        await ctx.send(message("ERROR", f"Command does not exist. Type .help to list of commands"))
+
+bot.run(token)
