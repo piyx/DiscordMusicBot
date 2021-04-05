@@ -34,7 +34,7 @@ def q_embed(ctx, info: YTSong, queue: deque[YTSong]):
         icon_url=ctx.author.avatar_url
     )
 
-    first_ten = list(islice(queue, 10))
+    first_ten = list(islice(queue, 5))
     for i, song in enumerate(first_ten, 1):
         embed.add_field(name=u'\u200b',
                         value=f"`{i}.` [{song.title}]({song.vidurl})\n `Duration: {song.duration}`",
