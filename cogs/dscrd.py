@@ -2,17 +2,22 @@ import discord
 from discord.ext import tasks
 from discord.utils import get
 from discord.ext import commands
+
+
 from utils.messages import message
 
 
 class Discord(commands.Cog):
     def __init__(self, client) -> None:
         self.client = client
-        self.status = "I'm a bot"
+        self.status = "1 DVS BSTD"
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.client.change_presence(status=discord.Status.online, activity=discord.Game(self.status))
+        await self.client.change_presence(
+            status=discord.Status.online,
+            activity=discord.Game(self.status)
+        )
         print("Bot is ready!")
 
     @commands.command()
