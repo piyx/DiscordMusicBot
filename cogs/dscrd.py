@@ -1,4 +1,5 @@
 import discord
+from discord import Embed
 from discord.ext import tasks
 from discord.utils import get
 from discord.ext import commands
@@ -23,8 +24,7 @@ class Discord(commands.Cog):
     @commands.command()
     async def ping(self, ctx):
         '''Displays the ping'''
-        embed = discord.Embed(
-            title=f'Pong! {round(self.client.latency*1000)}ms', color=0x457832)
+        embed = Embed(title=f'Pong! {round(self.client.latency*1000)}ms', color=0x457832)
         await ctx.send(embed=embed)
 
     @commands.Cog.listener()

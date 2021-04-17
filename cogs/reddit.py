@@ -1,6 +1,9 @@
-import discord
-from utils.rddit import Reddit
+from discord import Embed
+from discord import Color
 from discord.ext import commands
+
+
+from utils.reddit import get_reddit_post
 
 
 class Posts(commands.Cog):
@@ -8,17 +11,20 @@ class Posts(commands.Cog):
         self.client = client
 
     @commands.command()
-    async def reddit(self, ctx, subreddit, category="hot"):
+    async def reddit(self, ctx, subreddit: str, category: str = "hot"):
         '''Displays one post from the subreddit based on category'''
-        rdt = Reddit(subreddit, category)
-        data = rdt.get_post()
-        if not data:
-            embed = discord.Embed(
-                title="Invalid subreddit or category!", color=0x4e7978)
-        else:
-            embed = discord.Embed(
-                title=f"{data['name']}\n{data['title']}", description=f"{data['desc']}\n{data['url']}", color=0x4e7978)
-            embed.set_image(url=data['url'])
+        post = get_reddit_post(subreddit, category)
+
+        if isinstance(post, str): # Error message in str
+            embed = Embed(title=post, color=Color.random())
+            return await ctx.send(embed=embed)
+        
+        embed = Embed(title=f"{post.name}\n{post.title}", 
+                      description=f"{post.desc}\n{post.url}", 
+                      color=Color.random()
+                    )
+
+        embed.set_image(url=post.url)
         await ctx.send(embed=embed)
 
 
