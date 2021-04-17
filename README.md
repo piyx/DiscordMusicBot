@@ -45,7 +45,7 @@
 <p align='center'><img src='imgs/reddit2.jpg' width=70%></p>
 <p align='center'><img src='imgs/reddit3.jpg' width=70%></p>
 
-# Anime
+### Anime
 
 <p align='center'><img src='imgs/ss_naruto.jpg' width=70%></p>
 <p align='center'><img src='imgs/ss_aot.jpg' width=70%></p>
