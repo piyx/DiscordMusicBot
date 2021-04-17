@@ -1,57 +1,81 @@
 import requests
 from datetime import date
+from typing import Optional
+from dataclasses import dataclass
 
 
+from .credentials import WEATHER_API
+from .credentials import NASA_API
+
+
+BASE = "http://api.weatherapi.com"
+
+
+@dataclass
 class Weather:
-    def __init__(self, key, city):
-        self.key = key
-        self.city = city
+    loc: str
+    desc: str
+    icon: str
+    curr: str
+    wind: str
+    pressure: str
+    feels: str
 
-    def current_weather(self):
-        weather_url = f"http://api.weatherapi.com/v1/current.json?key={self.key}&q={self.city}"
-        response = requests.get(weather_url)
-        data = response.json()
 
-        res = {}
+@dataclass
+class Astro:
+    sunrise: str
+    sunset: str
+    moonrise: str
+    moonset: str
 
-        if "error" in data:
-            return None
 
-        # Location details
-        location = f"{data['location']['name']}, {data['location']['region']}"
+def current_weather(city: str) -> Optional[Weather]:
+    weather_url = BASE + f"/v1/current.json?key={WEATHER_API}&q={city}"
+    response = requests.get(weather_url)
+    data = response.json()
 
-        # Weather
-        condition = data['current']['condition']
-        desc, icon = condition['text'], "https:" + condition['icon']
+    if "error" in data:
+        return None
 
-        # Numbers
-        degree = u"\N{DEGREE SIGN}"
+    location = data['location']
+    condition = data['current']['condition']
+    degree = u"\N{DEGREE SIGN}"
+    temp = data['current']
 
-        temp = data['current']
-        current = f"{temp['temp_c']}{degree}C"
-        wind = f"{temp['wind_kph']} kmph"
-        pressure = f"{temp['pressure_mb']} mbar"
-        feels_like = f"{temp['feelslike_c']}{degree}C"
+    return Weather(
+        loc=f"{location['name']}, {location['region']}",
+        desc=condition['text'],
+        icon=f"https:{condition['icon']}",
+        curr=f"{temp['temp_c']}{degree}C",
+        wind=f"{temp['wind_kph']} kmph",
+        pressure=f"{temp['pressure_mb']} mbar",
+        feels=f"{temp['feelslike_c']}{degree}C"
+    )
 
-        res = {'location': location, 'desc': desc, 'icon': icon, 'curr': current,
-               'wind': wind, 'pressure': pressure, 'feels': feels_like}
 
-        return res
+def astronomy(city: str) -> Optional[Astro]:
+    today = date.today()
+    astro_url = BASE + f"/v1/astronomy.json?key={WEATHER_API}&q={city}&dt={today}"
+    response = requests.get(astro_url)
+    data = response.json()
 
-    def astronomy(self):
-        today = date.today()
-        astro_url = f"https://api.weatherapi.com/v1/astronomy.json?key={self.key}&q={self.city}&dt={today}"
-        response = requests.get(astro_url)
-        data = response.json()
+    if "error" in data:
+        return None
 
-        if "error" in data:
-            return None
+    
+    astro = data['astronomy']['astro']
 
-        # Astronomy
-        astro = data['astronomy']['astro']
-        sunrise, sunset, moonrise, moonset = astro['sunrise'], astro[
-            'sunset'], astro['moonrise'], astro['moonset']
-        res = {'sunrise': sunrise, 'sunset': sunset,
-               'moonrise': moonrise, 'moonset': moonset}
+    return Astro(
+        sunrise=astro['sunrise'],
+        sunset=astro['sunset'],
+        moonrise=astro['moonrise'],
+        moonset=astro['moonset']
+    )
 
-        return res
+
+def apod() -> Optional[str]:
+    '''Returns a url of the astronomy picture of the day'''
+    url = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API}"
+    response = requests.get(url)
+    return response.json()['url'] if response.ok else None

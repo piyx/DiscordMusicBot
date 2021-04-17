@@ -11,7 +11,7 @@ USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 
 # Discord token
 # Get it from https://discord.com/developers/applications
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("TOKEN")
 
 # Weather api_key
 # Get it from https://www.weatherapi.com/
@@ -20,3 +20,5 @@ WEATHER_API = os.getenv("WEATHER_API")
 # Nasa api
 # Get it from https://api.nasa.gov/
 NASA_API = os.getenv("NASA_API")
+
+
