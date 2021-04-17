@@ -55,7 +55,4 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(message("ERROR", "Argument missing. Type .help <command> for usage details"))
 
-    # elif isinstance(error, commands.CommandError):
-    #     await ctx.send(message("ERROR", f"Command does not exist. Type .help to list of commands"))
-
 bot.run(token)
