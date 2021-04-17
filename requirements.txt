@@ -5,3 +5,4 @@ requests
 youtube-dl
 python_dotenv
 yt_music_api
+bs4
