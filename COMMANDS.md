@@ -45,3 +45,9 @@
 | Command                        | Description                      | Example                |
 | :----------------------------- | :------------------------------- | :--------------------- |
 | .reddit [subreddit] [category] | displays one post from subreddit | .reddit wallpapers top |
+
+## Anime
+
+| Command           | Description                          | Example                |
+| :---------------- | :----------------------------------- | :--------------------- |
+| .anime anime_name | displays information about the anime | .reddit wallpapers top |
