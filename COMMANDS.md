@@ -48,6 +48,6 @@
 
 ## Anime
 
-| Command           | Description                          | Example                |
-| :---------------- | :----------------------------------- | :--------------------- |
-| .anime anime_name | displays information about the anime | .reddit wallpapers top |
+| Command           | Description                          | Example       |
+| :---------------- | :----------------------------------- | :------------ |
+| .anime anime_name | displays information about the anime | .anime naruto |
