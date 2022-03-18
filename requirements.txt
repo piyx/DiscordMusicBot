@@ -1,0 +1,4 @@
+discord.py==1.7.3
+yt-dlp==2022.3.8.2
+ytmusicapi==0.21.0
+python-dotenv==0.19.2
