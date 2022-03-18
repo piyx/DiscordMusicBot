@@ -1,8 +1,0 @@
-discord.py
-praw
-PyNaCl
-requests
-youtube-dl
-python_dotenv
-bs4
-ytmusicapi
