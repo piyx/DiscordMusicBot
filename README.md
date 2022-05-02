@@ -10,7 +10,7 @@ A minimal discord music bot with useful features.
 4. Add ffmpeg to PATH.
 
 ## How to run
-```
+```cmd
 git clone https://github.com/piyx/DiscordMusicBot.git
 cd DiscordMusicBot
 pip install -r requirements.txt
@@ -20,7 +20,7 @@ python musicbot/bot.py
 
 ## Bot commands
 
-```
+```cmd
 Bot prefix is . (dot)
 To use any command prefix it with .
 ```
