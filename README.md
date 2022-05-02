@@ -9,18 +9,21 @@ A minimal discord music bot with useful features.
 3. Install ffmpeg https://ffmpeg.org/download.html#build-windows or https://github.com/BtbN/FFmpeg-Builds/releases
 4. Add ffmpeg to PATH.
 
-## Install dependencies
-
-`pip install -r requirements.txt`
-
 ## How to run
-
-`python bot.py`
+```
+git clone https://github.com/piyx/DiscordMusicBot.git
+cd DiscordMusicBot
+pip install -r requirements.txt
+pip install -e .
+python musicbot/bot.py
+```
 
 ## Bot commands
 
-- `Bot prefix is '.'`
-- `To use any command prefix it with '.'`
+```
+Bot prefix is . (dot)
+To use any command prefix it with .
+```
 
 ## Discord
 
